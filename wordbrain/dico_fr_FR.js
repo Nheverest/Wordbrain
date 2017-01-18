@@ -1130,7 +1130,8 @@ dico[8] = ["abaisser","abattage","abatteur","abattoir","abbatial","abdiquer","ab
 "violence","violente","violents","virement","virginal","virginie","virilité","virtuose","virulent","visibles",
 "visiteur","visqueux","vitalité","vitesses","vitrines","vivacité","vivaient","vivantes","vivement","vocation",
 "voisines","voiturer","voitures","volaille","volontés","voltaire","volubile","voudrais","voudrait","voyageur",
-"voyaient","vraiment","vulgaire","warrants","wilfried","williams","wolfgang","zingueur","zoologie","tiramisu","manucure"]; 
+"voyaient","vraiment","vulgaire","warrants","wilfried","williams","wolfgang","zingueur","zoologie",
+"tiramisu","manucure","zeppelin"]; 
 
 dico[9] = ["abandonné","abasourdi","abdominal","abjection","aboiement","abolition","abondance",
 "abondante","abordable","aborigène","abstraite","abstraits","absurdité","académies","accablant","accélérée",
@@ -1447,7 +1448,8 @@ dico[9] = ["abandonné","abasourdi","abdominal","abjection","aboiement","aboliti
 "versement","vertébral","verticale","vestiaire","vestibule","vêtements","vétilleux","victoires","vieillard",
 "viendrait","viendront","vigilance","vigilants","vigoureux","vingtaine","vingtième","violation","violences",
 "violenter","violentes","violettes","virginité","virulente","visiteurs","vocations","vociférer","voisinage",
-"voiturage","voulaient","voyageurs","voyageuse","vulgarisé","vulgarité","xiloïdine","zélandais","zigzaguer","chimpanzé","turquoise"];
+"voiturage","voulaient","voyageurs","voyageuse","vulgarisé","vulgarité","xiloïdine","zélandais","zigzaguer",
+"chimpanzé","turquoise","snowboard","mobylette","escalator"];
 
 dico[10] = ["abandonnée","abandonner","abandonnés","abasourdir","abdication","abécédaire","aberration",
 "abonnement","aborigènes","aboutirait","abricotier","absolument","absolution","absorption","abstention",

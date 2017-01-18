@@ -35,6 +35,9 @@ E13 -	Full search
 	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 	<meta http-equiv="pragma" content="no-cache" />
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no,
+user-scalable=no"/>
+
 	<style>
 		td.outer {display:none;}
 		table, td {
@@ -46,6 +49,9 @@ E13 -	Full search
 			border-collapse:collapse;
 	}
 		div { width:100%}
+		input.selecteur {
+		    border:1px solid red;
+		 }
 	</style>
 
 	<script type="text/javascript" src="dico_fr_FR.js" ></script>
@@ -55,6 +61,21 @@ E13 -	Full search
 		function selectContent(e) {
 			var target = (e.target) ? e.target : e.srcElement;
 			target.select();
+		}
+		
+		function selectInput(e) {
+		    var target = (e.target) ? e.target : e.srcElement;
+		    var desiredPosition = Number(target.getAttribute('data-pos'));
+		    if ( wordbrain.startCell ) {
+		        // revert style
+		        var input = document.querySelector('input[data-pos="' + wordbrain.startCell + '"]');
+		        input.className ="";
+		    }
+		    wordbrain.startCell = desiredPosition;
+		    target.className = "selecteur";
+		    document.getElementById("startLetter").innerHTML = wordbrain.getValue(wordbrain.startCell);
+		    target.blur();
+		    e.preventDefault();
 		}
 
 		var wordbrain = {
@@ -77,35 +98,6 @@ E13 -	Full search
 				document.getElementById("tableHeight").value = 6;
 				wordbrain.buildTable();
 			},
-			
-			// Determines start cell (id set on text and radio input)
-			getStartCell: function() {
-				var radios = document.getElementsByName('selectedLetter');
-				var result;
-
-				for (var i = 0, length = radios.length; i < length; i++) {
-					if (radios[i].checked) {
-						result = Number(radios[i].value);
-						break;
-					}
-				}
-				return result;
-			},
-
-			// Sets start letter
-			setStartCell: function(wantedIndex) {
-				var radios = document.getElementsByName('selectedLetter');
-
-				for (var i = 0, length = radios.length; i < length; i++) {
-					if (Number(radios[i].value) === wantedIndex ) {
-						radios[i].checked = true;
-						wordbrain.startCell = Number(radios[i].value);
-					}
-					else
-						radios[i].checked = false;
-				}
-			},
-			
 			
 			populateStructure: function() {
 				for (  var i = 0; i< wordbrain.outerHeight*wordbrain.outerWidth; i++ )
@@ -183,6 +175,7 @@ E13 -	Full search
 						input.type = "text";
 						input.addEventListener("keyup", wordbrain.upperCase, false);
 						input.addEventListener("focus", selectContent, false);
+						input.addEventListener("dblclick", selectInput, false);
 
 						input.size=1;
 						input.maxLength=1;
@@ -190,15 +183,6 @@ E13 -	Full search
 						input.setAttribute('data-pos', pos);
 						input.value = "";
 						td.appendChild(input);
-						
-						if ( ! wordbrain.isOuterCell(pos) ) {
-							// add radio button
-							var radio = document.createElement("input");
-							radio.type = "radio";
-							radio.name = "selectedLetter";
-							radio.value = pos;
-							td.appendChild(radio);
-						}
 						tr.appendChild(td);
 					}
 				}
@@ -223,8 +207,6 @@ E13 -	Full search
 					alert("Length must be between 2 and "+ (wordbrain.outerHeight-2)(wordbrain.outerWidth-2));
 					return;
 				}
-
-				wordbrain.startCell = wordbrain.getStartCell();
 				
 				if ( ! wordbrain.startCell ) {
 					alert("You must select a start letter first!");
@@ -399,11 +381,11 @@ E13 -	Full search
 			},
 			buildAndDisplayAllResults: function() {
 				try {
-					var results = [[]];
+					var results = [];
 					for(var i=0; i < wordbrain.outerHeight*wordbrain.outerWidth; i++) {
 						// if current position is not empty
 						if ( wordbrain.structure[i] && wordbrain.structure[i].trim() !== "" ) {
-							wordbrain.setStartCell(i);
+							wordbrain.startCell =i;
 							var tmpResults = wordbrain.buildWords();
 							results = results.concat(tmpResults);
 						}
