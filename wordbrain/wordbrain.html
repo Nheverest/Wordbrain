@@ -24,6 +24,7 @@ E11 -	optimisation 1 : utilisation d'une "structure" + objet wordbrain
 E12 -	optimisation 2 : contrôler les mots par rapport aux débuts possibles
         Rechargement du dictionnaire
 E13 -	Full search
+E14 -   no radio
 -->
 <!DOCTYPE html> 
 <html>
@@ -59,25 +60,14 @@ user-scalable=no"/>
 	<script type="text/javascript">
 		// automatically select current value on a text input
 		function selectContent(e) {
-			var target = (e.target) ? e.target : e.srcElement;
+			var target = getTarget(e);
 			target.select();
 		}
-		
-		function selectInput(e) {
-		    var target = (e.target) ? e.target : e.srcElement;
-		    var desiredPosition = Number(target.getAttribute('data-pos'));
-		    if ( wordbrain.startCell ) {
-		        // revert style
-		        var input = document.querySelector('input[data-pos="' + wordbrain.startCell + '"]');
-		        input.className ="";
-		    }
-		    wordbrain.startCell = desiredPosition;
-		    target.className = "selecteur";
-		    document.getElementById("startLetter").innerHTML = wordbrain.getValue(wordbrain.startCell);
-		    target.blur();
-		    e.preventDefault();
-		}
 
+        function getTarget(e) {
+            return (e.target) ? e.target : e.srcElement;
+        }
+        
 		var wordbrain = {
 			// height and width of container table (i.e. user table height+2 and width+2
 			outerHeight:null,
@@ -87,7 +77,8 @@ user-scalable=no"/>
 			displayAll: false,		// display all words found
 			restrictedMode: true,	// search words based on a dictionnary
 			locale: "fr_FR",		// start dictionnary locale
-			structure: [],			
+			structure: [],
+			deleteMode: false,	
 			
 			// possible moves from a position intialization
 			possibleMoves: [],
@@ -164,7 +155,6 @@ user-scalable=no"/>
 						var pos = wordbrain.outerWidth*row + column;
 
 						var td = document.createElement("td");
-						td.setAttribute('data-pos', pos);
 
 						// hide outer cells
 						if ( wordbrain.isOuterCell(pos) )
@@ -175,7 +165,7 @@ user-scalable=no"/>
 						input.type = "text";
 						input.addEventListener("keyup", wordbrain.upperCase, false);
 						input.addEventListener("focus", selectContent, false);
-						input.addEventListener("dblclick", selectInput, false);
+						input.addEventListener("dblclick", wordbrain.dispatchAction, false);
 
 						input.size=1;
 						input.maxLength=1;
@@ -231,15 +221,38 @@ user-scalable=no"/>
 				}
 			},
 			
-			removeLetter: function() {
-				var pos = Number(this.parentElement.getAttribute("data-pos"));
+			selectInput: function(e) {
+	    		var target = getTarget(e);
+			    var desiredPosition = Number(target.getAttribute('data-pos'));
+	    		if ( wordbrain.startCell ) {
+		        	// revert style
+	        		var input = document.querySelector('input[data-pos="' + wordbrain.startCell + '"]');
+	    	    	input.className ="";
+		     	}
+		    	wordbrain.startCell = desiredPosition;
+		    	target.className = "selecteur";
+		    	document.getElementById("startLetter").innerHTML = wordbrain.getValue(wordbrain.startCell);
+			},
+			
+			dispatchAction: function (e) {
+			    console.log(wordbrain.deleteMode);
+			    if ( wordbrain.deleteMode )
+			        wordbrain.removeLetter(e);
+			    else
+			       wordbrain.selectInput(e);
+			    getTarget(e).blur();
+			    e.preventDefault();
+			        
+			},
+			removeLetter: function(e) {
+			    var input = getTarget(e);
+				var pos = Number(input.getAttribute("data-pos"));
 
 				for (j=pos; j>wordbrain.outerWidth; j=j-wordbrain.outerWidth) {
 					var currentInput = document.querySelector('input[data-pos="' + j + '"]');
 					currentInput.value = wordbrain.getValue(j-wordbrain.outerWidth);
 					wordbrain.structure[j] = wordbrain.structure[j-wordbrain.outerWidth];
 				}
-				return false;
 			},
 
 			toAlpha: function(letters) {
@@ -327,18 +340,8 @@ user-scalable=no"/>
 				return results[wordbrain.maxLength];
 			},
 
-			updateRadioMode: function(checked) {
-				if ( document.getElementById("inputTable") ) {
-					var radios = document.getElementById("inputTable").querySelectorAll('input[type="radio"]');
-					for (var i = 0; i < radios.length; i++ ) {
-						var input = radios[i];
-						if (checked) {
-							input.addEventListener("click", wordbrain.removeLetter, false);
-						} else {
-							input.removeEventListener('click', wordbrain.removeLetter, false);
-						}  
-					}
-				}
+			setDeleteMode: function(checked) {
+			    wordbrain.deleteMode = checked;
 			},
 			
 			updateDisplayMode: function(checked) {
@@ -417,7 +420,7 @@ user-scalable=no"/>
 		<div id="tableContainer">
 	</div>
 	<br/>
-	Radio mode: check for delete mode <input type="checkbox" id="deletemode" onclick="wordbrain.updateRadioMode(this.checked);"/>
+	Radio mode: check for delete mode <input type="checkbox" id="deletemode" onclick="wordbrain.setDeleteMode(this.checked);"/>
 	<br/>
 	Display mode: check to display all results <input type="checkbox" id="displayall" onclick="wordbrain.updateDisplayMode(this.checked);"/>
 	<br/>
