@@ -483,7 +483,7 @@ dico[6] = ["abasie","abattu","abbaye","abêtir","abîmer","abject","abolir","abo
 "voirie","voisin","volage","volant","volcan","volées","volets","voleur","volige","volume","volute",
 "votant","vôtres","voudra","voulez","voulue","voulut","voyage","voyais","voyait","voyant","voyons",
 "vraies","vulpin","wagons","wallon","walter","wayang","welter","wigwam","xavier","yvette","zénith",
-"zigzag","zlotys","zombie","zygote","poncho","fiesta","sciure"];
+"zigzag","zlotys","zombie","zygote","poncho","fiesta","sciure","viking"];
 
 dico[7] = ["abaissé","abandon","abattre","abattus","abbesse","abcéder","abdomen","abeille","abjurer",
 "abonnée","abonner","abonnés","aborder","abordés","abortif","aboutir","aboutit","abrasif","abrégée","abréger",
