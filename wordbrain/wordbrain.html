@@ -235,7 +235,6 @@ user-scalable=no"/>
 			},
 			
 			dispatchAction: function (e) {
-			    console.log(wordbrain.deleteMode);
 			    if ( wordbrain.deleteMode )
 			        wordbrain.removeLetter(e);
 			    else
@@ -341,6 +340,13 @@ user-scalable=no"/>
 
 			setDeleteMode: function(checked) {
 			    wordbrain.deleteMode = checked;
+			    wordbrain.setReadonly(checked);
+			},
+			
+			setReadonly: function(bool) {
+			    var inputs = document.querySelectorAll('input[data-pos]'); 
+			    for (var input in inputs )
+			        input.readonly=bool;
 			},
 			
 			updateDisplayMode: function(checked) {
