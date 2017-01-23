@@ -53,6 +53,8 @@ user-scalable=no"/>
 		input.selecteur {
 		    border:1px solid red;
 		 }
+		 
+		 input.highlighted {background-color: grey}
 	</style>
 
 	<script type="text/javascript" src="dico_fr_FR.js" ></script>
@@ -78,7 +80,8 @@ user-scalable=no"/>
 			restrictedMode: true,	// search words based on a dictionnary
 			locale: "fr_FR",		// start dictionnary locale
 			structure: [],
-			deleteMode: false,	
+			deleteMode: false,
+			firstLetterOnly: false,
 			
 			// possible moves from a position intialization
 			possibleMoves: [],
@@ -271,18 +274,22 @@ user-scalable=no"/>
 				var htmlProbable = "";
 				var probableCount = 0;
 				
-				for (i=0; i<results.length;i++) {
-					var currentWord = wordbrain.toAlpha(results[i]);
+    			for (i=0; i<results.length;i++) {
+			    	if ( this.firstLetterOnly ) {
+				        this.highlight(results[i][0], true);
+			    	} else {
+					    var currentWord = wordbrain.toAlpha(results[i]);
 					
-					if ( wordbrain.displayAll || dico[wordbrain.maxLength].indexOf(currentWord.toLowerCase()) !== -1 ) {
-						probableCount++;
-						htmlProbable += currentWord + " ";
-					} 						
+				    	if ( wordbrain.displayAll || dico[wordbrain.maxLength].indexOf(currentWord.toLowerCase()) !== -1 ) {
+			    			probableCount++;
+					    	htmlProbable += currentWord + " ";
+			    		} 						
 					
+		    	    	document.getElementById("nbResults").innerHTML = "Nb results: "  + probableCount + "/" + results.length;
+	    		    	resultDiv.innerHTML = htmlProbable;
+	    		    	resultDiv.style.display = "";
+				    }
 				}
-				document.getElementById("nbResults").innerHTML = "Nb results: "  + probableCount + "/" + results.length;
-				resultDiv.innerHTML = htmlProbable;
-				resultDiv.style.display = "";
 				if ( console ) {
 					var endDate = new Date();
 					console.info("displayResults end:   " + endDate + ". Duration: " + (endDate.getTime() - millis)/1000);
@@ -294,6 +301,15 @@ user-scalable=no"/>
 			getValue: function(pos) {
 				var input = document.querySelector('input[data-pos="' + pos + '"]');
 				return input.value;
+			},
+			
+			highlight: function(pos, highlight) {
+			console.log("pos="+pos);
+			var input = document.querySelector('input[data-pos="' + pos + '"]');
+			if ( highlight && input.className.indexOf("highlighted") === -1)
+			    input.className += " highlighted";
+			else
+			    input.className = input.className.replace(" highlighted","");
 			},
 			
 			buildWords: function() {
@@ -343,8 +359,12 @@ user-scalable=no"/>
 			    wordbrain.setReadonly(checked);
 			},
 			
+			listInputs: function() {
+			    return document.getElementById("tableContainer").querySelectorAll('input[type="text"][data-pos]');
+			},
+			
 			setReadonly: function(bool) {
-			    var inputs = document.getElementById("tableContainer").querySelectorAll('input[type="text"][data-pos]'); 
+			    var inputs = this.listInputs(); 
 			    for (var i=0; i<inputs.length;i++) {
 			        var input = inputs[i];
 			        console.log(input);
@@ -411,6 +431,14 @@ user-scalable=no"/>
 			clearResults: function() {
 				document.getElementById("nbResults").innerHTML = "Nb results: " ;
 				document.getElementById("searchResult").innerHTML = "";
+				var inputs = this.listInputs();
+				for (var i=0; i< inputs.length; i++) {
+				   this.highlight(inputs[i].getAttribute("data-pos"), false);
+		        }
+			},
+			
+			setFirstLettersOnly: function(activate) {
+			    this.firstLetterOnly = activate;
 			}
 		};
 	</script>
@@ -428,18 +456,17 @@ user-scalable=no"/>
     <div id="tableContainer">
 	</div>
 	<br/>
-	Radio mode: check for delete mode <input type="checkbox" id="deletemode" onclick="wordbrain.setDeleteMode(this.checked);"/>
+	<input type="checkbox" id="deletemode" onclick="wordbrain.setDeleteMode(this.checked);"/> Activate delete mode 
 	<br/>
-	Display mode: check to display all results <input type="checkbox" id="displayall" onclick="wordbrain.updateDisplayMode(this.checked);"/>
+	<input type="checkbox" id="displayall" onclick="wordbrain.updateDisplayMode(this.checked);"/> Display all results
 	<br/>
-	Search mode: restrict to valid word beginnings <input type="checkbox" id="restrictedsearch" onclick="wordbrain.updateRestrictedSearch(this.checked);" checked="true"/>
+	<input type="checkbox" id="restrictedsearch" onclick="wordbrain.updateRestrictedSearch(this.checked);" checked="true"/> Valid words only
 	<br/><br/>
-	<input type="number" id="wordLength" min="2" max="10" placeholder="Enter word length" onfocus="selectContent(event)" />
+	<input type="number" id="wordLength" min="2" max="10" placeholder="Length" onfocus="selectContent(event)" /><span id="nbResults" style="font-family:monospace;"></span>
 	<br/>
-	<input type="button" onclick="wordbrain.doSearch()" value="Search words" />&nbsp;Selected Letter:&nbsp;<span id="startLetter">none</span>
+	<input type="button" onclick="wordbrain.doSearch()" value="Search words starting with" />&nbsp;<span id="startLetter">&lt;none selected></span>
 	<br/>
-	<input type="button" onclick="wordbrain.fullSearch()" value="Search all letters" />
-	<div id="nbResults" style="font-family:monospace;"></div>
+	<input type="button" onclick="wordbrain.fullSearch()" value="Search all letters" />start letters only<input type="checkbox" id="firstLetters" onclick="wordbrain.setFirstLettersOnly(this.checked);"/>
 	<div id="searchResult" style="font-family:monospace;font-size:6;">
 	</div>
 	</form>
