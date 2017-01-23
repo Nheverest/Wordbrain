@@ -102,7 +102,9 @@ user-scalable=no"/>
 			upperCase: function(e) {
 				var target = (e.target) ? e.target : e.srcElement;
 				target.value = target.value.toUpperCase();
-				wordbrain.nextInput(target);
+				if ( target.value.match(/[A-zÀ-ÿ]/) ) {
+					wordbrain.nextInput(target);
+				}
 			},
 
 			setOuterDimensions: function() {
@@ -304,7 +306,6 @@ user-scalable=no"/>
 			},
 			
 			highlight: function(pos, highlight) {
-			console.log("pos="+pos);
 			var input = document.querySelector('input[data-pos="' + pos + '"]');
 			if ( highlight && input.className.indexOf("highlighted") === -1)
 			    input.className += " highlighted";
@@ -366,9 +367,7 @@ user-scalable=no"/>
 			setReadonly: function(bool) {
 			    var inputs = this.listInputs(); 
 			    for (var i=0; i<inputs.length;i++) {
-			        var input = inputs[i];
-			        console.log(input);
-			        input.readOnly=bool;
+			        inputs[i].readOnly=bool;
 			    }
 			},
 			
@@ -389,8 +388,6 @@ user-scalable=no"/>
 				script= document.createElement("script");
 				var url = "?n=" + new Date().getTime();
 				url = "dico_"+wordbrain.locale+".js" + url;
-				if ( console )
-				    console.debug("url:" + url);
 				script.src= url;
 				
 				script.type = "text/javascript";
