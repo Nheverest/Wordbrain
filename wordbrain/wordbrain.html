@@ -344,9 +344,12 @@ user-scalable=no"/>
 			},
 			
 			setReadonly: function(bool) {
-			    var inputs = document.querySelectorAll('input[data-pos]'); 
-			    for (var input in inputs )
-			        input.readonly=bool;
+			    var inputs = document.getElementById("tableContainer").querySelectorAll('input[type="text"][data-pos]'); 
+			    for (var i=0; i<inputs.length;i++) {
+			        var input = inputs[i];
+			        console.log(input);
+			        input.readOnly=bool;
+			    }
 			},
 			
 			updateDisplayMode: function(checked) {
@@ -422,7 +425,7 @@ user-scalable=no"/>
 			<option value="fr_FR">fr_FR</option>
 			<option value="en_GB">en_GB</option>
 		</select>
-		<div id="tableContainer">
+    <div id="tableContainer">
 	</div>
 	<br/>
 	Radio mode: check for delete mode <input type="checkbox" id="deletemode" onclick="wordbrain.setDeleteMode(this.checked);"/>
