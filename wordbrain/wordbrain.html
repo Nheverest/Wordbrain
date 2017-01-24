@@ -25,6 +25,7 @@ E12 -	optimisation 2 : contrôler les mots par rapport aux débuts possibles
         Rechargement du dictionnaire
 E13 -	Full search
 E14 -   no radio
+E14 -.  Start letters
 -->
 <!DOCTYPE html> 
 <html>
@@ -81,7 +82,7 @@ user-scalable=no"/>
 			locale: "fr_FR",		// start dictionnary locale
 			structure: [],
 			deleteMode: false,
-			firstLetterOnly: false,
+			firstLetterOnly: true,  // display only start letters
 			
 			// possible moves from a position intialization
 			possibleMoves: [],
@@ -463,7 +464,7 @@ user-scalable=no"/>
 	<br/>
 	<input type="button" onclick="wordbrain.doSearch()" value="Search words starting with" />&nbsp;<span id="startLetter">&lt;none selected></span>
 	<br/>
-	<input type="button" onclick="wordbrain.fullSearch()" value="Search all letters" />start letters only<input type="checkbox" id="firstLetters" onclick="wordbrain.setFirstLettersOnly(this.checked);"/>
+	<input type="button" onclick="wordbrain.fullSearch()" value="Search all letters" />start letters only<input type="checkbox" id="firstLetters" onclick="wordbrain.setFirstLettersOnly(this.checked);" checked="true"/>
 	<div id="searchResult" style="font-family:monospace;font-size:6;">
 	</div>
 	</form>
