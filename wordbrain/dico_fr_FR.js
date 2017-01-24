@@ -791,7 +791,8 @@ dico[7] = ["abaissé","abandon","abattre","abattus","abbesse","abcéder","abdome
 "virgule","visages","visible","visions","visiter","visites","vitesse","vitrine","vivante","vivants","vocable",
 "voilier","voisine","voisins","voiture","voleter","voleurs","volitif","volonté","voltage","volumes","volupté",
 "votante","votants","voulais","voulait","voulant","vouloir","voulons","voyager","voyages","voyelle","warning",
-"western","william","yannick","yiddish","zaïrois","zézayer","zozoter","mouture","mélasse"];
+"western","william","yannick","yiddish","zaïrois","zézayer","zozoter","mouture","mélasse","vintage","popcorn",
+"weekend"];
 
 dico[8] = ["abaisser","abattage","abatteur","abattoir","abbatial","abdiquer","aberrant","abhorrer",
 "ablation","abominer","abondant","abordage","abrasion","abrasive","abreuver","absinthe","absorber","absoudre",
