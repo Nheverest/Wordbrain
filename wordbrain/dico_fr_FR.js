@@ -82,7 +82,7 @@ dico[4] = ["abbé","aber","abri","abus","acmé","acné","âcre","acte","acul","a
 "vent","venu","vers","vert","veto","vêtu","veuf","veut","veux","vice","vide","vidé","vies","vifs","vins",
 "vint","viol","visa","vise","visé","vite","vive","vlan","vœux","voie","voir","vois","voit","voix","vole",
 "volé","vols","vont","vote","voté","voué","vous","vues","yack","yang","yard","yens","yeux","yoga","yves",
-"yvon","zèle","zélé","zéro","zinc","zone","faux","vrai"];
+"yvon","zèle","zélé","zéro","zinc","zone","faux","vrai","blog","soda"];
 
 dico[5] = ["abats","abcès","abîme","aboli","abord","about","accès","accru","accus","acéré","achat",
 "acide","acier","actes","actif","adieu","admet","admis","adore","adoré","affût","âgées","agent","agile",
@@ -223,7 +223,7 @@ dico[5] = ["abats","abcès","abîme","aboli","abord","about","accès","accru","a
 "ville","vingt","virer","viril","virus","visas","visée","viser","vitae","vital","vitre","vitro","vives",
 "vivra","vivre","vodka","vogue","voici","voies","voile","voire","volée","voler","volet","vomir","votée",
 "voter","votes","votre","vôtre","vouée","vouer","voués","voulu","voûte","voyez","voyou","vraie","vrais",
-"vulgo","wagon","willy","world","yacht","zaïre","zébré","zones"];
+"vulgo","wagon","willy","world","yacht","zaïre","zébré","zones","chips"];
 
 dico[6] = ["abasie","abattu","abbaye","abêtir","abîmer","abject","abolir","abonné","aborde",
 "abordé","abords","abouti","aboyer","abrégé","abrite","abrité","abrupt","abruti","absent","absolu",
@@ -483,7 +483,7 @@ dico[6] = ["abasie","abattu","abbaye","abêtir","abîmer","abject","abolir","abo
 "voirie","voisin","volage","volant","volcan","volées","volets","voleur","volige","volume","volute",
 "votant","vôtres","voudra","voulez","voulue","voulut","voyage","voyais","voyait","voyant","voyons",
 "vraies","vulpin","wagons","wallon","walter","wayang","welter","wigwam","xavier","yvette","zénith",
-"zigzag","zlotys","zombie","zygote","poncho","fiesta","sciure","viking"];
+"zigzag","zlotys","zombie","zygote","poncho","fiesta","sciure","viking","podium"];
 
 dico[7] = ["abaissé","abandon","abattre","abattus","abbesse","abcéder","abdomen","abeille","abjurer",
 "abonnée","abonner","abonnés","aborder","abordés","abortif","aboutir","aboutit","abrasif","abrégée","abréger",
@@ -792,7 +792,7 @@ dico[7] = ["abaissé","abandon","abattre","abattus","abbesse","abcéder","abdome
 "voilier","voisine","voisins","voiture","voleter","voleurs","volitif","volonté","voltage","volumes","volupté",
 "votante","votants","voulais","voulait","voulant","vouloir","voulons","voyager","voyages","voyelle","warning",
 "western","william","yannick","yiddish","zaïrois","zézayer","zozoter","mouture","mélasse","vintage","popcorn",
-"weekend"];
+"weekend","blogger","scooter"];
 
 dico[8] = ["abaisser","abattage","abatteur","abattoir","abbatial","abdiquer","aberrant","abhorrer",
 "ablation","abominer","abondant","abordage","abrasion","abrasive","abreuver","absinthe","absorber","absoudre",
@@ -1450,7 +1450,7 @@ dico[9] = ["abandonné","abasourdi","abdominal","abjection","aboiement","aboliti
 "viendrait","viendront","vigilance","vigilants","vigoureux","vingtaine","vingtième","violation","violences",
 "violenter","violentes","violettes","virginité","virulente","visiteurs","vocations","vociférer","voisinage",
 "voiturage","voulaient","voyageurs","voyageuse","vulgarisé","vulgarité","xiloïdine","zélandais","zigzaguer",
-"chimpanzé","turquoise","snowboard","mobylette","escalator"];
+"chimpanzé","turquoise","snowboard","mobylette","escalator","grignoter"];
 
 dico[10] = ["abandonnée","abandonner","abandonnés","abasourdir","abdication","abécédaire","aberration",
 "abonnement","aborigènes","aboutirait","abricotier","absolument","absolution","absorption","abstention",
@@ -1719,7 +1719,7 @@ dico[10] = ["abandonnée","abandonner","abandonnés","abasourdir","abdication","
 "vantardise","variations","végétarien","végétation","vénération","véritables","vermicelle","verrouillé",
 "versements","victorieux","vieillards","vieillesse","vietnamien","vigoureuse","vilipender","villageois",
 "vindicatif","violations","violemment","virtuosité","visibilité","vitriolage","volontaire","volontiers",
-"volumineux","voudraient","vulnérable","xénophobie","yougoslave","serpillère"];
+"volumineux","voudraient","vulnérable","xénophobie","yougoslave","serpillère","projecteur"];
 
 dico[11] = ["abaissement","abandonnant","abandonnées","abandonnent","abomination","abondamment",
 "abonnements","aboutissent","abréviation","absentéisme","absolutisme","abstentions","abstraction","absurdement",
