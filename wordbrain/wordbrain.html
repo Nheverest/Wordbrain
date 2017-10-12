@@ -98,6 +98,24 @@ user-scalable=no"/>
 				for (  var i = 0; i< wordbrain.outerHeight*wordbrain.outerWidth; i++ )
 					wordbrain.structure[i] = wordbrain.getValue(i) || "";
 			},
+			
+			populateTable: function() {
+			    for (  var i = 0; i< wordbrain.outerHeight*wordbrain.outerWidth; i++ )
+			        if ( wordbrain.structure[i] )
+			        wordbrain.setValue(i, wordbrain.structure[i]);
+			},
+			
+			save: function() {
+			    wordbrain.populateStructure();
+			    alert(JSON.stringify(wordbrain.structure));
+			    localStorage.setItem("wordbrain", JSON.stringify(wordbrain.structure));
+			},
+			
+			load: function() {
+			    alert(JSON.parse(localStorage.getItem("wordbrain")));
+			    wordbrain.structure=JSON.parse(localStorage.getItem("wordbrain"));
+			    wordbrain.populateTable();
+			},
 
 			// changes the user input to uppercase and moves to next cell
 			upperCase: function(e) {
@@ -172,6 +190,7 @@ user-scalable=no"/>
 						input.addEventListener("keyup", wordbrain.upperCase, false);
 						input.addEventListener("focus", selectContent, false);
 						input.addEventListener("dblclick", wordbrain.dispatchAction, false);
+						input.addEventListener("click", wordbrain.checkDelete);
 
 						input.size=1;
 						input.maxLength=1;
@@ -240,11 +259,15 @@ user-scalable=no"/>
 		    	document.getElementById("startLetter").innerHTML = wordbrain.getValue(wordbrain.startCell);
 			},
 			
-			dispatchAction: function (e) {
-			    if ( wordbrain.deleteMode )
+			checkDelete: function(e) {
+		    	if ( wordbrain.deleteMode ) {
 			        wordbrain.removeLetter(e);
-			    else
-			       wordbrain.selectInput(e);
+			        getTarget(e).blur();
+			    }
+			},
+			
+			dispatchAction: function (e) {
+			    wordbrain.selectInput(e);
 			    getTarget(e).blur();
 			    e.preventDefault();
 			},
@@ -299,6 +322,11 @@ user-scalable=no"/>
 				}
 			},
 			
+			setValue: function(pos, value) {
+				var input = document.querySelector('input[data-pos="' + pos + '"]');
+				input.value = value;
+			},
+			
 			// return text value of the input with data-pos=pos
 			// used to populate the data structure
 			getValue: function(pos) {
@@ -308,10 +336,10 @@ user-scalable=no"/>
 			
 			highlight: function(pos, highlight) {
 			var input = document.querySelector('input[data-pos="' + pos + '"]');
-			if ( highlight && input.className.indexOf("highlighted") === -1)
-			    input.className += " highlighted";
+			if ( highlight && input.className.indexOf(" highlighted ") === -1)
+			    input.className += " highlighted ";
 			else
-			    input.className = input.className.replace(" highlighted","");
+			    input.className = input.className.replace(" highlighted ","");
 			},
 			
 			buildWords: function() {
@@ -465,6 +493,9 @@ user-scalable=no"/>
 	<input type="button" onclick="wordbrain.doSearch()" value="Search words starting with" />&nbsp;<span id="startLetter">&lt;none selected></span>
 	<br/>
 	<input type="button" onclick="wordbrain.fullSearch()" value="Search all letters" />start letters only<input type="checkbox" id="firstLetters" onclick="wordbrain.setFirstLettersOnly(this.checked);" checked="true"/>
+    <br/>
+    <input type="button" onclick="wordbrain.save()" value="Save" />
+    <input type="button" onclick="wordbrain.load()" value="Load" />
 	<div id="searchResult" style="font-family:monospace;font-size:6;">
 	</div>
 	</form>
