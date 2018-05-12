@@ -44,12 +44,10 @@ var wordbrain = {
 	
 	save: function() {
 	    wordbrain.populateStructure();
-	    alert(JSON.stringify(wordbrain.structure));
 	    localStorage.setItem("wordbrain", JSON.stringify(wordbrain.structure));
 	},
 	
 	load: function() {
-	    alert(JSON.parse(localStorage.getItem("wordbrain")));
 	    wordbrain.structure=JSON.parse(localStorage.getItem("wordbrain"));
 	    wordbrain.populateTable();
 	},

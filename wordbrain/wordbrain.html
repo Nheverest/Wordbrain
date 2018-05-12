@@ -1,32 +1,3 @@
-<!--
-E01 - 	Première version. Le tableau de stockage a les dimensions sélectionnées par l'utilisateur. 
-		Recherche non implémentée
-E02 - 	Idem E01, mais avec stockage du tableau dans une matrice dont les bords ont des valeurs vides.
-		Recherche récursive
-E03 - 	Recherche non récursive. 
-		Structure des résultats : tableau de tableau
-			premier indice : mots de la longueur de l'indice
-			deuxième indice : mots de la longueur du premier indice
-		
-			Chaque mot est lui-même un tableau des indentifiants de cellules. 
-			Pour l'affichage, chaque lette de chaque mot doit être récupérée dans le tableau.
-E04 - 	Gestion des séquences interdites
-E05 -	Gestion du dictionnaire
-E06 -	Ajout radio button
-E07 -	Sélection automatique du contenu des cases
-E08 -	Affichage uniquement des mots du dictionnaire
-E09 -	Descente après suppression de lettre
-		+ Gestion des fins de ligne lors des déplacements 
-		+ autres améliorations
-E10 -	Suppression forbiddenSequences
-		+ ergonomie
-E11 -	optimisation 1 : utilisation d'une "structure" + objet wordbrain
-E12 -	optimisation 2 : contrôler les mots par rapport aux débuts possibles
-        Rechargement du dictionnaire
-E13 -	Full search
-E14 -   no radio
-E14 -.  Start letters
--->
 <!DOCTYPE html> 
 <html>
 <head>
@@ -63,7 +34,7 @@ user-scalable=no"/>
 	<script type="text/javascript" src="wordbrain.js"></script>
 
 </head>
-<body onload="wordbrain.doInit()">
+<body onload="wordbrain.doInit();wordbrain.load()" onunload ="return wordbrain.save()">
 	<form name="tableBuilder">
 		<input type="number" id="tableWidth" min="1" max="9" width="1" maxlength="1" placeholder="Enter table width" onfocus="selectContent(event)" />
 		<input type="number" id="tableHeight" min="1" max="9" width="1" maxlength="1" placeholder="Enter table height" onfocus="selectContent(event)" />
@@ -88,8 +59,6 @@ user-scalable=no"/>
 	<br/>
 	<input type="button" onclick="wordbrain.fullSearch()" value="Search all letters" />start letters only<input type="checkbox" id="firstLetters" onclick="wordbrain.setFirstLettersOnly(this.checked);" checked="true"/>
     <br/>
-    <input type="button" onclick="wordbrain.save()" value="Save" />
-    <input type="button" onclick="wordbrain.load()" value="Load" />
 	<div id="searchResult" style="font-family:monospace;font-size:6;">
 	</div>
 	</form>
